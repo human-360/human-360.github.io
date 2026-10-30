@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=13">
+  <link rel="stylesheet" href="assets/styles.css?v=14">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -89,27 +89,28 @@
 
     <!-- 01 · INÍCIO -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <div class="hero__text">
-        <p class="eyebrow hero__eyebrow" data-reveal><span class="deg">000°</span>HUMAN 360 · Desenvolvimento humano e organizacional</p>
-        <h1 class="hero__title" id="hero-title" data-reveal style="--d:.1s">
-          <span class="l">Pessoas</span>
-          <span class="l">que evoluem.</span>
-          <span class="l">Empresas</span>
-          <span class="l">que <em>crescem.</em></span>
-        </h1>
-        <p class="hero__lead" data-reveal style="--d:.3s">Desenvolvemos pessoas, fortalecemos lideranças e ajudamos organizações a transformar competências em resultados.</p>
-        <div class="hero__ctas" data-reveal style="--d:.4s">
-          <a class="btn btn--solid" href="#solucoes">Conheça as nossas soluções</a>
-          <a class="link" href="#contactos">Fale connosco</a>
-        </div>
-      </div>
-      <!-- FOTOGRAFIA TEMPORÁRIA (Unsplash, licença gratuita, foto 3gO_bWev2jQ): substituir por fotografia real da HUMAN 360 em sessão -->
-      <figure class="hero__photo">
+      <!-- Fotografia enviada pelo cliente; o topo foi prolongado para a imagem ocupar a altura da hero -->
+      <figure class="hero__photo" aria-hidden="true">
         <picture>
-          <source type="image/webp" srcset="assets/foto/hero-800.webp 800w, assets/foto/hero-1200.webp 1200w, assets/foto/hero-1800.webp 1800w" sizes="(min-width: 900px) 45vw, 100vw">
-          <img src="assets/foto/hero-1200.jpg" width="1200" height="800" alt="Duas pessoas conduzem uma sessão de trabalho com a equipa sentada à mesa" fetchpriority="high" decoding="async">
+          <source type="image/webp" srcset="assets/foto/hero-750.webp 750w, assets/foto/hero.webp 1125w" sizes="(min-width: 900px) 64vw, 100vw">
+          <img src="assets/foto/hero.jpg" width="1125" height="900" alt="" fetchpriority="high" decoding="async">
         </picture>
       </figure>
+      <div class="hero__text">
+        <p class="hero__eyebrow" data-reveal><span>HUMAN 360</span> • Desenvolvimento humano e organizacional</p>
+        <h1 class="hero__title" id="hero-title" data-reveal style="--d:.1s">
+          <span class="l">Pessoas</span>
+          <span class="l">que evoluem,</span>
+          <span class="l">empresas</span>
+          <span class="l">que <em>crescem.</em></span>
+        </h1>
+        <p class="hero__lead" data-reveal style="--d:.25s">Desenvolvemos pessoas, fortalecemos lideranças e ajudamos organizações a transformar competências em resultados.</p>
+        <div class="hero__ctas" data-reveal style="--d:.35s">
+          <a class="btn btn--pill" href="#solucoes">Conheça as nossas soluções</a>
+          <a class="link" href="#contactos">Fale connosco</a>
+        </div>
+        <p class="hero__tags" data-reveal style="--d:.45s">Formação • Mentoria • Consultoria</p>
+      </div>
     </section>
 
     <!-- 02 · SOBRE NÓS -->
@@ -344,15 +345,14 @@
 
         <div class="contact__panel">
           <h3 class="panel__title" data-reveal>Fale com a nossa equipa</h3>
-          <p class="panel__lead" data-reveal>Escolha com quem prefere falar. Respondemos pessoalmente.</p>
           <ul class="team" data-reveal>
             <li class="team__m">
               <div class="team__who"><strong>Mafalda Almeida</strong><span>Partner Human 360</span></div>
-              <a class="btn btn--solid" href="tel:+351938850757" aria-label="Ligar para Mafalda Almeida, +351 938 850 757">+351 938 850 757</a>
+              <a class="btn btn--solid" href="https://wa.me/351938850757" target="_blank" rel="noopener" aria-label="Falar por WhatsApp com Mafalda Almeida, +351 938 850 757">+351 938 850 757</a>
             </li>
             <li class="team__m">
               <div class="team__who"><strong>Fernanda Fragoso</strong><span>Partner Human 360</span></div>
-              <a class="btn btn--solid" href="tel:+351917148540" aria-label="Ligar para Fernanda Fragoso, +351 917 148 540">+351 917 148 540</a>
+              <a class="btn btn--solid" href="https://wa.me/351917148540" target="_blank" rel="noopener" aria-label="Falar por WhatsApp com Fernanda Fragoso, +351 917 148 540">+351 917 148 540</a>
             </li>
           </ul>
         </div>
@@ -363,7 +363,7 @@
   <footer class="footer">
     <div class="wrap">
       <div class="footer__top">
-        <p class="footer__claim">Pessoas que evoluem.<br>Empresas que <em>crescem.</em></p>
+        <p class="footer__claim">Pessoas que evoluem,<br>empresas que <em>crescem.</em></p>
         <a class="cta" href="#contactos"><span class="cta__dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>Fale com a nossa equipa</a>
       </div>
 
@@ -388,8 +388,8 @@
         <div class="footer__col">
           <p class="footer__label">Contacto</p>
           <ul>
-            <li>Mafalda Almeida<br><a href="tel:+351938850757">+351 938 850 757</a></li>
-            <li>Fernanda Fragoso<br><a href="tel:+351917148540">+351 917 148 540</a></li>
+            <li>Mafalda Almeida<br><a href="https://wa.me/351938850757" target="_blank" rel="noopener">+351 938 850 757</a></li>
+            <li>Fernanda Fragoso<br><a href="https://wa.me/351917148540" target="_blank" rel="noopener">+351 917 148 540</a></li>
           </ul>
         </div>
       </div>
@@ -404,6 +404,6 @@
     </div>
   </footer>
 
-  <script src="assets/main.js?v=13" defer></script>
+  <script src="assets/main.js?v=14" defer></script>
 </body>
 </html>

@@ -162,7 +162,7 @@
     if (reduced) return;
 
     // Rodapé: o símbolo completa a volta com a página
-    orbit.classList.toggle('is-off', footer.getBoundingClientRect().top < vh - 60);
+    orbit.classList.toggle('is-off', y < vh * .5 || footer.getBoundingClientRect().top < vh - 60);
 
     // Filosofia: o verde-petróleo cresce em círculo
     const t = clamp((vh - pr.top) / (vh * .95));
