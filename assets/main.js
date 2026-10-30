@@ -114,16 +114,179 @@ const CONFIG = {
     $$('main section[id]').forEach(s => navIo.observe(s));
   }
 
-  /* ---------- Soluções: acordeão ---------- */
-  $$('.acc__btn').forEach(btn => {
-    const item = btn.closest('.acc__item');
-    if (btn.getAttribute('aria-expanded') === 'true') item.classList.add('is-open');
-    btn.addEventListener('click', () => {
-      const open = btn.getAttribute('aria-expanded') !== 'true';
-      btn.setAttribute('aria-expanded', String(open));
-      item.classList.toggle('is-open', open);
+  /* ---------- Soluções: Mostrador 360° ---------- */
+  const dial = $('.dial');
+  if (dial) {
+    const items = $$('.dial__item', dial);
+    const btns = items.map(li => $('.dial__btn', li));
+    const list = $('.dial__list', dial);
+    const rot = $('.dial__rot', dial);
+    const degEl = $('.dial__deg', dial);
+    const mdesc = $('.dial__mdesc', dial);
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const canHover = window.matchMedia('(hover: hover)');
+    const pad = n => String(Math.round(n)).padStart(3, '0') + '°';
+    const ease = k => (k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+
+    // Anel: círculo base + 5 marcas a cada 72° (0° no topo, sentido horário)
+    const ns = 'http://www.w3.org/2000/svg';
+    const ring = $('.dial__ring', dial);
+    const C = 260, R = 250;
+    const pt = (a, r) => { const t = (a - 90) * Math.PI / 180; return [C + r * Math.cos(t), C + r * Math.sin(t)]; };
+    const el = (tag, attrs, parent) => {
+      const n = document.createElementNS(ns, tag);
+      Object.entries(attrs).forEach(([k, v]) => n.setAttribute(k, v));
+      parent.append(n);
+      return n;
+    };
+    el('circle', { class: 'dial__base', cx: C, cy: C, r: R, pathLength: 100 }, ring);
+    const marks = items.map(li => {
+      const a = +li.dataset.deg;
+      const g = el('g', { class: 'dial__mk' }, ring);
+      const [s1, s2] = [pt(a - 14, R), pt(a + 14, R)];
+      el('path', { class: 'dial__seg', d: `M${s1} A${R} ${R} 0 0 1 ${s2}` }, g);
+      const [t1, t2] = [pt(a, R - 10), pt(a, R + 10)];
+      el('line', { class: 'dial__tick', x1: t1[0], y1: t1[1], x2: t2[0], y2: t2[1] }, g);
+      const n = pt(a, R);
+      el('circle', { class: 'dial__node', cx: n[0], cy: n[1], r: 5 }, g);
+      const l = pt(a, R + 32);
+      el('text', { class: 'dial__lbl', x: l[0], y: l[1], 'text-anchor': 'middle', 'dominant-baseline': 'middle' }, g).textContent = pad(a);
+      return g;
     });
-  });
+
+    // Divide um parágrafo em linhas reais para a revelação linha a linha
+    const splitLines = p => {
+      const text = p.dataset.text || (p.dataset.text = p.textContent.trim());
+      p.textContent = '';
+      const words = text.split(/\s+/).map(w => {
+        const s = document.createElement('span');
+        s.textContent = w + ' ';
+        p.append(s);
+        return s;
+      });
+      const lines = [];
+      let top = null;
+      words.forEach(s => {
+        if (s.offsetTop !== top) { lines.push([]); top = s.offsetTop; }
+        lines[lines.length - 1].push(s.textContent);
+      });
+      p.textContent = '';
+      lines.forEach((l, i) => {
+        const s = document.createElement('span');
+        s.className = 'ln';
+        s.style.setProperty('--l', i);
+        s.textContent = l.join('').trim();
+        p.append(s, ' ');
+      });
+    };
+    const splitAll = () => items.forEach(li => splitLines($('.dial__panel p', li)));
+
+    let current = -1, angle = 0, shown = 0, counterRaf = 0;
+    const countTo = target => {
+      cancelAnimationFrame(counterRaf);
+      if (reduced) { shown = target; degEl.textContent = pad(target); return; }
+      const from = shown, t0 = performance.now(), dur = 900;
+      const tick = now => {
+        const k = clamp((now - t0) / dur);
+        shown = from + (target - from) * ease(k);
+        degEl.textContent = pad(shown);
+        if (k < 1) counterRaf = requestAnimationFrame(tick);
+      };
+      counterRaf = requestAnimationFrame(tick);
+    };
+
+    const activate = i => {
+      if (i === current) return;
+      current = i;
+      const target = +items[i].dataset.deg;
+      // caminho mais curto até ao novo ângulo
+      const delta = ((target - angle) % 360 + 540) % 360 - 180;
+      angle += delta;
+      rot.style.transform = `rotate(${angle}deg)`;
+      countTo(target);
+      items.forEach((li, k) => {
+        li.classList.toggle('is-active', k === i);
+        btns[k].setAttribute('aria-expanded', String(k === i));
+        marks[k].classList.toggle('is-on', k === i);
+      });
+      if (!desktop.matches) {
+        mdesc.classList.remove('is-on');
+        mdesc.innerHTML = '';
+        const p = document.createElement('p');
+        p.textContent = $('.dial__panel p', items[i]).dataset.text || $('.dial__panel p', items[i]).textContent;
+        mdesc.append(p);
+        splitLines(p);
+        void mdesc.offsetWidth;
+        mdesc.classList.add('is-on');
+      }
+    };
+
+    // Clique (todos os dispositivos)
+    btns.forEach((b, i) => b.addEventListener('click', () => {
+      activate(i);
+      if (!desktop.matches) items[i].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+    }));
+
+    // Hover com atraso de 120ms (só desktop com rato). Só conta movimento real do rato,
+    // e fica bloqueado enquanto a lista se reajusta, para não ativar o item que "passa" por baixo.
+    let hoverT, lockUntil = 0, lastX = -1, lastY = -1;
+    btns.forEach((b, i) => {
+      b.addEventListener('mousemove', e => {
+        if (!desktop.matches || !canHover.matches) return;
+        if (e.clientX === lastX && e.clientY === lastY) return;
+        lastX = e.clientX; lastY = e.clientY;
+        if (i === current || performance.now() < lockUntil) return;
+        clearTimeout(hoverT);
+        hoverT = setTimeout(() => { activate(i); lockUntil = performance.now() + 650; }, 120);
+      });
+      b.addEventListener('mouseleave', () => clearTimeout(hoverT));
+    });
+
+    // Teclado: setas mudam de item
+    list.addEventListener('keydown', e => {
+      const k = btns.indexOf(document.activeElement);
+      if (k < 0) return;
+      const next = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+      if (!next) return;
+      e.preventDefault();
+      const j = (k + next + btns.length) % btns.length;
+      btns[j].focus();
+      btns[j].click();
+    });
+
+    // Telemóvel: o item centrado na faixa fica ativo
+    let stripRaf = 0;
+    list.addEventListener('scroll', () => {
+      if (desktop.matches) return;
+      cancelAnimationFrame(stripRaf);
+      stripRaf = requestAnimationFrame(() => {
+        const mid = list.getBoundingClientRect().left + list.clientWidth / 2;
+        let best = 0, dist = Infinity;
+        items.forEach((li, k) => {
+          const r = li.getBoundingClientRect();
+          const d = Math.abs(r.left + r.width / 2 - mid);
+          if (d < dist) { dist = d; best = k; }
+        });
+        activate(best);
+      });
+    }, { passive: true });
+
+    // Entrada: uma vez, quando a secção aparece
+    if ('IntersectionObserver' in window && !reduced) {
+      const dio = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) { dial.classList.add('is-in'); dio.disconnect(); }
+      }, { threshold: .2 });
+      dio.observe(dial);
+    } else dial.classList.add('is-in');
+
+    let resizeT;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeT);
+      resizeT = setTimeout(() => { splitAll(); const c = current; current = -1; activate(c); }, 200);
+    });
+    splitAll();
+    activate(0);
+  }
 
   /* ---------- Efeitos de scroll ---------- */
   const orbitFill = $('.orbit__fill');
