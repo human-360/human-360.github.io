@@ -223,12 +223,9 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .sym img:nth-child(4) { transition-delay: .24s; }
 .js .sym img { transform: translate(calc(var(--x) * 16%), calc(var(--y) * 16%)) rotate(calc(var(--x) * var(--y) * -28deg)); opacity: 0; }
 .js.is-loaded .mark .sym img, .js .is-in .sym img, .js .is-in.sym img, .js .cycle.is-done .sym img { transform: none; opacity: 1; }
-/* Hero: com o scroll, o símbolo abre-se (--open 0 → 1, definido em main.js) */
-.js.is-loaded .mark .sym img {
-  transform: translate(calc(var(--x) * var(--open, 0) * 24%), calc(var(--y) * var(--open, 0) * 24%)) rotate(calc(var(--open, 0) * 32deg));
-}
-.mark.is-ready .sym img { transition: transform .25s linear, opacity 1s ease; }
-.mark__ring { transform: scale(calc(1 + var(--open, 0) * .12)); opacity: calc(1 - var(--open, 0) * .6); }
+/* Hero: a marca assenta (entrada curta, sem rodopio) e nunca se desfaz */
+.js .mark .sym img { transform: translate(calc(var(--x) * 5%), calc(var(--y) * 5%)); transition: transform 1.4s var(--ease), opacity 1.1s ease; }
+.js.is-loaded .mark .sym img { transform: none; opacity: 1; }
 .js .mark__dot { opacity: 0; }
 .is-loaded .mark__orbit { animation: draw 2.6s var(--ease) .6s forwards; }
 .is-loaded .mark__dot { animation: fadeIn .8s ease 2s forwards; }
@@ -298,74 +295,76 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
   .pair { grid-column: 1 / 4; grid-row: 1; }
 }
 
-/* ---------- Soluções: Mostrador 360° ---------- */
+/* ---------- Soluções: lista tipográfica (contraponto reto aos círculos) ---------- */
 .solutions { background: var(--paper); }
 .solutions .sec__head .display { max-width: 18ch; }
-.dial { display: grid; gap: 2.5rem; }
-.dial__visual { display: grid; justify-items: center; }
-.dial__stage { position: relative; width: min(86vw, 340px); aspect-ratio: 1; }
-.dial__ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.dial__base { fill: none; stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 100; stroke-dashoffset: 100; transform: rotate(-90deg); transform-origin: 260px 260px; transition: stroke-dashoffset 1.2s var(--ease); }
-.dial.is-in .dial__base, html:not(.js) .dial__base { stroke-dashoffset: 0; }
-.dial__tick { stroke: var(--rule); stroke-width: 1.5; transition: stroke .4s; }
-.dial__node { fill: var(--white); stroke: var(--petrol); stroke-width: 1.5; transition: fill .4s, stroke .4s; }
-.solutions .dial__node { fill: var(--paper); }
-.dial__seg { fill: none; stroke: var(--terra); stroke-width: 3; stroke-linecap: round; opacity: 0; transition: opacity .5s; }
-.dial__lbl { font-size: 15px; font-weight: 500; fill: var(--muted); font-variant-numeric: tabular-nums; transition: fill .4s; }
-.dial__mk.is-on .dial__tick { stroke: var(--terra); }
-.dial__mk.is-on .dial__node { fill: var(--terra); stroke: var(--terra); }
-.dial__mk.is-on .dial__seg { opacity: 1; }
-.dial__mk.is-on .dial__lbl { fill: var(--terra); }
-.dial__rot { position: absolute; inset: 16%; transition: transform .9s cubic-bezier(.65, 0, .35, 1); will-change: transform; }
-.dial__deg {
-  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
-  font-size: clamp(1.25rem, .9rem + 1.2vw, 2.25rem); font-weight: 300; letter-spacing: -.03em; color: var(--petrol); font-variant-numeric: tabular-nums;
+.sol { --wipe: cubic-bezier(.65, 0, .35, 1); --pad: 1.5rem; }
+.sol__item { position: relative; margin-inline: calc(var(--pad) * -1); padding-inline: var(--pad); transition: opacity .5s var(--ease); }
+/* fundo verde que entra da esquerda */
+.sol__item::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; background: var(--petrol); border-radius: 4px;
+  clip-path: inset(0 100% 0 0); transition: clip-path .7s var(--wipe);
 }
+.sol__item.is-open::before { clip-path: inset(0 0 0 0); }
+/* divisória base (entrada) e divisória terracota (hover) */
+.sol__line, .sol__item::after {
+  content: ''; position: absolute; left: var(--pad); right: var(--pad); bottom: 0; height: 1px; z-index: 1;
+  transform: scaleX(0); transform-origin: left;
+}
+.sol__line { background: var(--rule); transition: transform 1s var(--ease), opacity .3s; transition-delay: calc(var(--i) * 80ms), 0s; }
+.sol.is-in .sol__line, html:not(.js) .sol__line { transform: none; }
+.sol__item::after { background: var(--terra); transition: transform .6s var(--ease), opacity .3s; }
+.sol__item.is-open .sol__line, .sol__item.is-open::after { opacity: 0; }
+.sol.has-open .sol__item:not(.is-open) { opacity: .35; }
 
-/* Lista: no telemóvel é uma faixa deslizável */
-.dial__list {
-  display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-  padding-inline: 12%; margin-inline: calc(var(--gutter) * -1); padding-block: .5rem;
+.sol h3 { font-weight: inherit; position: relative; z-index: 1; }
+.sol__btn {
+  width: 100%; display: grid; grid-template-columns: 1fr 22px; column-gap: 1rem; row-gap: .4rem; align-items: center;
+  text-align: left; background: none; border: 0; padding: clamp(1.4rem, 2.4vw, 2rem) 0; cursor: pointer; color: var(--petrol);
+  transition: color 0s linear .35s;
 }
-.dial__list::-webkit-scrollbar { display: none; }
-.dial__item { flex: 0 0 76%; scroll-snap-align: center; position: relative; }
-.dial__item h3 { font-weight: inherit; }
-.dial__btn {
-  width: 100%; display: grid; gap: .5rem; text-align: left; background: none; border: 0; padding: 1rem 0; cursor: pointer;
-  opacity: .35; transition: opacity .5s var(--ease);
+.sol__mk { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: .6rem; font-size: .75rem; font-weight: 600; letter-spacing: .14em; color: var(--terra); }
+.sol__mk i { width: 16px; height: 1.5px; background: var(--terra); }
+.sol__t { grid-column: 1; display: block; overflow: hidden; padding-bottom: .06em; }
+.sol__ti {
+  display: inline-block; font-size: clamp(1.3rem, .95rem + 1.6vw, 2.25rem); font-weight: 500; letter-spacing: -.025em; line-height: 1.2;
+  transition: transform 1s var(--ease); transition-delay: calc(var(--i) * 80ms + .15s);
 }
-.dial__item.is-active .dial__btn, .dial__btn:focus-visible { opacity: 1; }
-.dial { --tsize: clamp(1.25rem, .95rem + 1.5vw, 2.25rem); }
-.dial__n { line-height: calc(var(--tsize) * 1.2); font-size: .8125rem; font-weight: 500; color: var(--terra); font-variant-numeric: tabular-nums; letter-spacing: .04em; }
-.dial__t { display: block; overflow: hidden; padding-bottom: .08em; transition: transform .6s var(--ease); }
-.dial__ti { display: inline-block; font-size: var(--tsize); font-weight: 500; letter-spacing: -.025em; line-height: 1.2; color: var(--petrol); transition: transform 1s var(--ease); transition-delay: calc(var(--i) * 90ms + .2s); }
-.js .dial:not(.is-in) .dial__ti { transform: translateY(105%); }
-.dial__panel { display: none; }
-.dial__panel p, .dial__mdesc p { max-width: 46ch; color: var(--ink); }
-.ln { display: block; }
-.js .ln { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .6s var(--ease); transition-delay: calc(var(--l) * 60ms + .12s); }
-.js .is-active .ln, .js .dial__mdesc.is-on .ln { opacity: 1; transform: none; }
-.dial__mdesc { min-height: 7.5em; }
+.js .sol:not(.is-in) .sol__ti { transform: translateY(105%); }
+.sol__short { grid-column: 1; font-size: .9375rem; line-height: 1.5; color: #5F7272; transition: color 0s linear .35s; }
+.sol__arrow { grid-column: 2; grid-row: 2 / 4; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; transition: transform .5s var(--ease); }
+.sol__item.is-open .sol__btn, .sol__item.is-open .sol__short { color: var(--paper); }
+.sol__item.is-open .sol__arrow { transform: rotate(90deg); }
 
-@media (min-width: 1024px) {
-  .dial { grid-template-columns: 45fr 55fr; gap: clamp(2.5rem, 5vw, 5rem); align-items: start; }
-  .dial__visual { position: sticky; top: calc(50vh - min(19vw, 280px)); justify-items: start; }
-  .dial__stage { width: min(38vw, 560px); }
-  .dial__list { display: block; overflow: visible; padding: 0; margin: 0; position: relative; }
-  .dial__list::before, .dial__item::after {
-    content: ''; position: absolute; left: 0; right: 0; height: 1px; background: var(--rule);
-    transform: scaleX(0); transform-origin: left; transition: transform 1s var(--ease);
-  }
-  .dial__list::before { top: 0; }
-  .dial__item::after { bottom: 0; transition-delay: calc(var(--i) * 110ms + .1s); }
-  .dial.is-in .dial__list::before, .dial.is-in .dial__item::after, html:not(.js) .dial__item::after { transform: none; }
-  .dial__btn { grid-template-columns: 4.5rem 1fr; align-items: start; padding: 1.6rem 0; }
-  .dial__item.is-active .dial__t { transform: translateX(12px); }
-  .dial__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
-  .dial__panel > div { overflow: hidden; }
-  .dial__panel p { padding: 0 0 1.75rem calc(4.5rem + 12px); }
-  .dial__item.is-active .dial__panel, html:not(.js) .dial__panel { grid-template-rows: 1fr; }
-  .dial__mdesc { display: none; }
+.sol__panel { position: relative; z-index: 1; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--wipe); }
+.sol__panel > div { overflow: hidden; }
+.sol__item.is-open .sol__panel, html:not(.js) .sol__panel { grid-template-rows: 1fr; }
+.sol__inner { display: grid; gap: 1.5rem; padding-bottom: 2.25rem; opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .6s var(--ease); }
+.sol__item.is-open .sol__inner { opacity: 1; transform: none; transition-delay: .2s; }
+html:not(.js) .sol__inner { opacity: 1; transform: none; }
+.sol__inner p { max-width: 60ch; color: rgba(247, 246, 242, .86); }
+html:not(.js) .sol__inner p { color: var(--ink); }
+.sol__cta { justify-self: start; align-self: end; color: var(--paper); font-weight: 500; padding-bottom: .3rem; border-bottom: 1px solid var(--terra-soft); }
+.sol__cta span { display: inline-block; transition: transform .4s var(--ease); }
+.sol__cta:hover span { transform: translateX(4px); }
+
+@media (hover: hover) and (min-width: 768px) {
+  .sol__t { transition: transform .5s var(--ease); }
+  .sol__item:not(.is-open):hover::after { transform: scaleX(1); }
+  .sol__item:not(.is-open):hover .sol__t { transform: translateX(10px); }
+}
+@media (max-width: 767px) {
+  /* o verde sangra até às margens do ecrã */
+  .sol { --pad: var(--gutter); }
+  .sol__item::before { border-radius: 0; }
+}
+@media (min-width: 768px) {
+  .sol__btn { grid-template-columns: 4rem minmax(0, 1.5fr) minmax(0, 1fr) 22px; column-gap: 2rem; }
+  .sol__mk { grid-column: 1; }
+  .sol__t { grid-column: 2; }
+  .sol__short { grid-column: 3; }
+  .sol__arrow { grid-column: 4; grid-row: auto; }
+  .sol__inner { grid-template-columns: minmax(0, 60ch) auto; justify-content: start; column-gap: 4rem; padding-left: calc(4rem + 2rem); }
 }
 
 /* ---------- Metodologia ---------- */
@@ -569,7 +568,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 @media (min-width: 720px) { .form__row { grid-template-columns: 1fr 1fr; gap: 2rem; } }
 
 /* ---------- Rodapé ---------- */
-.footer { background: var(--paper); border-top: 1px solid var(--rule); padding-top: clamp(4.5rem, 9vw, 8rem); font-size: .9375rem; color: var(--ink); }
+.footer { background: var(--white); border-top: 1px solid var(--rule); padding-top: clamp(4.5rem, 9vw, 8rem); font-size: .9375rem; color: var(--ink); }
 .footer__top {
   display: grid; gap: 2.5rem; align-items: end;
   padding-bottom: clamp(3rem, 6vw, 5rem); border-bottom: 1px solid var(--rule);

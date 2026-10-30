@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=8">
+  <link rel="stylesheet" href="assets/styles.css?v=10">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -150,39 +150,73 @@
           <h2 class="display" id="sol-title" data-split>Soluções que desenvolvem pessoas e transformam organizações.</h2>
         </div>
 
-        <!-- Mostrador 360°: cada solução é um grau do círculo; o símbolo roda até ela -->
-        <div class="dial">
-          <div class="dial__visual" aria-hidden="true">
-            <div class="dial__stage">
-              <svg class="dial__ring" viewBox="-40 -40 600 600"></svg>
-              <div class="dial__rot"><div class="sym"><img src="assets/simbolo/p2.png" alt="" style="--x:-1;--y:-1"><img src="assets/simbolo/p3.png" alt="" style="--x:1;--y:-1"><img src="assets/simbolo/p0.png" alt="" style="--x:1;--y:1"><img src="assets/simbolo/p1.png" alt="" style="--x:-1;--y:1"></div></div>
-              <span class="dial__deg">000°</span>
-            </div>
-          </div>
-          <ol class="dial__list">
-            <li class="dial__item is-active" data-deg="0" style="--i:0">
-              <h3><button class="dial__btn" type="button" id="sol-1-btn" aria-expanded="true" aria-controls="sol-1"><span class="dial__n">000°</span><span class="dial__t"><span class="dial__ti">Desenvolvimento de Recursos Humanos</span></span></button></h3>
-              <div class="dial__panel" id="sol-1" role="region" aria-labelledby="sol-1-btn"><div><p>Capacitamos equipas de Recursos Humanos para uma gestão mais estratégica, organizada e eficiente, desenvolvendo competências técnicas, comportamentais e de gestão de pessoas.</p></div></div>
-            </li>
-            <li class="dial__item" data-deg="72" style="--i:1">
-              <h3><button class="dial__btn" type="button" id="sol-2-btn" aria-expanded="false" aria-controls="sol-2"><span class="dial__n">072°</span><span class="dial__t"><span class="dial__ti">Liderança e Gestão de Equipas</span></span></button></h3>
-              <div class="dial__panel" id="sol-2" role="region" aria-labelledby="sol-2-btn"><div><p>Desenvolvemos líderes capazes de inspirar, comunicar, mobilizar equipas e alcançar resultados, através de Academias de Liderança, formação e mentoria executiva.</p></div></div>
-            </li>
-            <li class="dial__item" data-deg="144" style="--i:2">
-              <h3><button class="dial__btn" type="button" id="sol-3-btn" aria-expanded="false" aria-controls="sol-3"><span class="dial__n">144°</span><span class="dial__t"><span class="dial__ti">Competências Humanas e Comportamentais</span></span></button></h3>
-              <div class="dial__panel" id="sol-3" role="region" aria-labelledby="sol-3-btn"><div><p>Potenciamos competências essenciais como comunicação, inteligência emocional, autoliderança, gestão de conflitos, colaboração e produtividade.</p></div></div>
-            </li>
-            <li class="dial__item" data-deg="216" style="--i:3">
-              <h3><button class="dial__btn" type="button" id="sol-4-btn" aria-expanded="false" aria-controls="sol-4"><span class="dial__n">216°</span><span class="dial__t"><span class="dial__ti">Cultura Organizacional e Bem-Estar</span></span></button></h3>
-              <div class="dial__panel" id="sol-4" role="region" aria-labelledby="sol-4-btn"><div><p>Apoiamos as empresas na construção de ambientes de trabalho mais positivos, colaborativos e humanizados, promovendo o compromisso, a confiança e a experiência do colaborador.</p></div></div>
-            </li>
-            <li class="dial__item" data-deg="288" style="--i:4">
-              <h3><button class="dial__btn" type="button" id="sol-5-btn" aria-expanded="false" aria-controls="sol-5"><span class="dial__n">288°</span><span class="dial__t"><span class="dial__ti">Consultoria e Transformação Organizacional</span></span></button></h3>
-              <div class="dial__panel" id="sol-5" role="region" aria-labelledby="sol-5-btn"><div><p>Diagnosticamos desafios, identificamos oportunidades de melhoria e acompanhamos a implementação de soluções que contribuem para processos mais eficientes e equipas mais autónomas.</p></div></div>
-            </li>
-          </ol>
-          <div class="dial__mdesc" aria-hidden="true"></div>
-        </div>
+        <ol class="sol">
+          <li class="sol__item" style="--i:0">
+            <span class="sol__line" aria-hidden="true"></span>
+            <h3><button class="sol__btn" type="button" id="sol-1-btn" aria-expanded="false" aria-controls="sol-1">
+              <span class="sol__mk"><i aria-hidden="true"></i>A</span>
+              <span class="sol__t"><span class="sol__ti">Desenvolvimento de Recursos Humanos</span></span>
+              <span class="sol__short">Gestão de pessoas mais estratégica e eficiente.</span>
+              <svg class="sol__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button></h3>
+            <div class="sol__panel" id="sol-1" role="region" aria-labelledby="sol-1-btn"><div class="sol__inner">
+              <p>Capacitamos equipas de Recursos Humanos para uma gestão mais estratégica, organizada e eficiente, desenvolvendo competências técnicas, comportamentais e de gestão de pessoas.</p>
+              <a class="sol__cta" href="#contactos" data-area="Desenvolvimento de Recursos Humanos">Falar sobre esta área <span aria-hidden="true">→</span></a>
+            </div></div>
+          </li>
+          <li class="sol__item" style="--i:1">
+            <span class="sol__line" aria-hidden="true"></span>
+            <h3><button class="sol__btn" type="button" id="sol-2-btn" aria-expanded="false" aria-controls="sol-2">
+              <span class="sol__mk"><i aria-hidden="true"></i>B</span>
+              <span class="sol__t"><span class="sol__ti">Liderança e Gestão de Equipas</span></span>
+              <span class="sol__short">Líderes que inspiram, mobilizam e alcançam resultados.</span>
+              <svg class="sol__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button></h3>
+            <div class="sol__panel" id="sol-2" role="region" aria-labelledby="sol-2-btn"><div class="sol__inner">
+              <p>Desenvolvemos líderes capazes de inspirar, comunicar, mobilizar equipas e alcançar resultados, através de Academias de Liderança, formação e mentoria executiva.</p>
+              <a class="sol__cta" href="#contactos" data-area="Liderança e Gestão de Equipas">Falar sobre esta área <span aria-hidden="true">→</span></a>
+            </div></div>
+          </li>
+          <li class="sol__item" style="--i:2">
+            <span class="sol__line" aria-hidden="true"></span>
+            <h3><button class="sol__btn" type="button" id="sol-3-btn" aria-expanded="false" aria-controls="sol-3">
+              <span class="sol__mk"><i aria-hidden="true"></i>C</span>
+              <span class="sol__t"><span class="sol__ti">Competências Humanas e Comportamentais</span></span>
+              <span class="sol__short">Comunicação, inteligência emocional, colaboração e produtividade.</span>
+              <svg class="sol__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button></h3>
+            <div class="sol__panel" id="sol-3" role="region" aria-labelledby="sol-3-btn"><div class="sol__inner">
+              <p>Potenciamos competências essenciais como comunicação, inteligência emocional, autoliderança, gestão de conflitos, colaboração e produtividade.</p>
+              <a class="sol__cta" href="#contactos" data-area="Competências Humanas e Comportamentais">Falar sobre esta área <span aria-hidden="true">→</span></a>
+            </div></div>
+          </li>
+          <li class="sol__item" style="--i:3">
+            <span class="sol__line" aria-hidden="true"></span>
+            <h3><button class="sol__btn" type="button" id="sol-4-btn" aria-expanded="false" aria-controls="sol-4">
+              <span class="sol__mk"><i aria-hidden="true"></i>D</span>
+              <span class="sol__t"><span class="sol__ti">Cultura Organizacional e Bem-Estar</span></span>
+              <span class="sol__short">Ambientes de trabalho positivos, colaborativos e humanizados.</span>
+              <svg class="sol__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button></h3>
+            <div class="sol__panel" id="sol-4" role="region" aria-labelledby="sol-4-btn"><div class="sol__inner">
+              <p>Apoiamos as empresas na construção de ambientes de trabalho mais positivos, colaborativos e humanizados, promovendo o compromisso, a confiança e a experiência do colaborador.</p>
+              <a class="sol__cta" href="#contactos" data-area="Cultura Organizacional e Bem-Estar">Falar sobre esta área <span aria-hidden="true">→</span></a>
+            </div></div>
+          </li>
+          <li class="sol__item" style="--i:4">
+            <span class="sol__line" aria-hidden="true"></span>
+            <h3><button class="sol__btn" type="button" id="sol-5-btn" aria-expanded="false" aria-controls="sol-5">
+              <span class="sol__mk"><i aria-hidden="true"></i>E</span>
+              <span class="sol__t"><span class="sol__ti">Consultoria e Transformação Organizacional</span></span>
+              <span class="sol__short">Diagnóstico de desafios e processos mais eficientes.</span>
+              <svg class="sol__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button></h3>
+            <div class="sol__panel" id="sol-5" role="region" aria-labelledby="sol-5-btn"><div class="sol__inner">
+              <p>Diagnosticamos desafios, identificamos oportunidades de melhoria e acompanhamos a implementação de soluções que contribuem para processos mais eficientes e equipas mais autónomas.</p>
+              <a class="sol__cta" href="#contactos" data-area="Consultoria e Transformação Organizacional">Falar sobre esta área <span aria-hidden="true">→</span></a>
+            </div></div>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -428,6 +462,6 @@
     </div>
   </footer>
 
-  <script src="assets/main.js?v=8" defer></script>
+  <script src="assets/main.js?v=10" defer></script>
 </body>
 </html>
