@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=10">
+  <link rel="stylesheet" href="assets/styles.css?v=11">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -89,12 +89,6 @@
 
     <!-- 01 · INÍCIO -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <div class="mark" aria-hidden="true">
-        <svg class="mark__ring" viewBox="-150 -150 300 300"><circle class="mark__orbit" r="138" pathLength="100"/><g class="mark__dot"><circle cx="138" cy="0" r="3.5"/></g></svg>
-        <!-- Símbolo original HUMAN 360, separado nas suas 4 peças (assets/simbolo) -->
-        <div class="mark__spin"><div class="sym"><img src="assets/simbolo/p2.png" alt="" style="--x:-1;--y:-1"><img src="assets/simbolo/p3.png" alt="" style="--x:1;--y:-1"><img src="assets/simbolo/p0.png" alt="" style="--x:1;--y:1"><img src="assets/simbolo/p1.png" alt="" style="--x:-1;--y:1"></div></div>
-      </div>
-
       <div class="wrap hero__grid">
         <p class="eyebrow hero__eyebrow" data-reveal><span class="deg">000°</span>HUMAN 360 · Desenvolvimento humano e organizacional</p>
 
@@ -104,6 +98,12 @@
           <span class="l l--in">empresas</span>
           <span class="l l--in">que <em>crescem.</em></span>
         </h1>
+
+        <div class="mark" aria-hidden="true">
+          <svg class="mark__ring" viewBox="-150 -150 300 300"><circle class="mark__orbit" r="138" pathLength="100"/><g class="mark__dot"><circle cx="138" cy="0" r="3.5"/></g></svg>
+          <!-- Símbolo original HUMAN 360, separado nas suas 4 peças (assets/simbolo) -->
+          <div class="mark__spin"><div class="sym"><img src="assets/simbolo/p2.png" alt="" style="--x:-1;--y:-1"><img src="assets/simbolo/p3.png" alt="" style="--x:1;--y:-1"><img src="assets/simbolo/p0.png" alt="" style="--x:1;--y:1"><img src="assets/simbolo/p1.png" alt="" style="--x:-1;--y:1"></div></div>
+        </div>
 
         <div class="hero__aside" data-reveal style="--d:.5s">
           <p class="hero__lead">Desenvolvemos pessoas, potenciamos lideranças e transformamos organizações através de soluções integradas de formação, mentoria e consultoria.</p>
@@ -334,14 +334,18 @@
     <section class="contact" id="contactos" aria-labelledby="contact-title">
       <div class="contact__split">
         <div class="contact__info">
-          <h2 class="display contact__title" id="contact-title" data-split>O próximo passo começa nas <em>pessoas.</em></h2>
+          <h2 class="display contact__title" id="contact-title" data-split>O próximo passo no crescimento da sua empresa começa nas <em>pessoas.</em></h2>
           <div class="contact__text" data-reveal>
             <p>Quer desenvolver as suas equipas, fortalecer as lideranças ou transformar a gestão de pessoas na sua organização?</p>
-            <p>Vamos conhecer os seus desafios e construir a solução certa para a sua empresa.</p>
+            <p><strong>Vamos conhecer os seus desafios e construir a solução certa para a sua empresa.</strong></p>
           </div>
           <a class="contact__link" href="#f-nome" data-focus-form data-reveal>Fale com a nossa equipa</a>
           <!-- WhatsApp: fica oculto até se definir o número em CONFIG.whatsappNumber (assets/main.js) -->
           <a class="contact__link contact__link--wa" href="#" data-whatsapp hidden target="_blank" rel="noopener">Conversar por WhatsApp</a>
+          <ul class="partners" data-reveal>
+            <li><strong>Mafalda Almeida</strong><span>Partner Human 360</span><a href="tel:+351938850757">+351 938 850 757</a></li>
+            <li><strong>Fernanda Fragoso</strong><span>Partner Human 360</span><a href="tel:+351917148540">+351 917 148 540</a></li>
+          </ul>
           <address data-reveal>
             <span class="address__label">Morada</span>
             Rua A Gazeta d'Oeiras, 2 - 1.º C<br>
@@ -451,17 +455,24 @@
         </div>
         <div class="footer__col">
           <p class="footer__label">Contacto</p>
-          <ul><li><a href="#contactos">Formulário de contacto</a></li></ul>
+          <ul>
+            <li>Mafalda Almeida<br><a href="tel:+351938850757">+351 938 850 757</a></li>
+            <li>Fernanda Fragoso<br><a href="tel:+351917148540">+351 917 148 540</a></li>
+            <li><a href="#contactos">Formulário de contacto</a></li>
+          </ul>
         </div>
       </div>
 
       <div class="footer__bar">
         <p>© <span data-year>2026</span> HUMAN 360 · Desenvolvimento humano e organizacional</p>
-        <a class="footer__up" href="#inicio">Voltar ao início <span aria-hidden="true">↑</span></a>
+        <div class="footer__end">
+          <a class="footer__up" href="#inicio">Voltar ao início <span aria-hidden="true">↑</span></a>
+          <p class="footer__credit">Design e desenvolvimento: <a href="https://www.instagram.com/ogrupocado/" target="_blank" rel="noopener">Grupo CADO</a></p>
+        </div>
       </div>
     </div>
   </footer>
 
-  <script src="assets/main.js?v=10" defer></script>
+  <script src="assets/main.js?v=11" defer></script>
 </body>
 </html>

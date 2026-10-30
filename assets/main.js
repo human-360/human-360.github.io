@@ -152,7 +152,6 @@ const CONFIG = {
   const orbitDeg = $('.orbit__deg');
   const orbit = $('.orbit');
   const spin = $('.mark__spin');
-  const mark = $('.mark');
   const dot = $('.mark__dot');
   const footer = $('.footer');
   const philo = $('#filosofia');
@@ -185,12 +184,9 @@ const CONFIG = {
 
     if (reduced) return;
 
-    // Hero: a logo fica inteira; gira ~30° ao longo do hero e sobe mais devagar que o texto.
+    // Hero: a logo fica inteira e no seu lugar; gira ~30° ao longo do hero.
     // O ponto percorre a órbita ao mesmo ritmo do indicador 000° → 360°.
-    if (y < vh * 1.4) {
-      spin.style.transform = `rotate(${(clamp(y / vh) * 30).toFixed(2)}deg)`;
-      mark.style.transform = `translate3d(0, ${(y * .22).toFixed(1)}px, 0)`;
-    }
+    if (y < vh * 1.4) spin.style.transform = `rotate(${(clamp(y / vh) * 30).toFixed(2)}deg)`;
     dot.style.transform = `rotate(${(-90 + p * 360).toFixed(2)}deg)`;
     // Rodapé: o símbolo completa a volta com a página
     orbit.classList.toggle('is-off', footer.getBoundingClientRect().top < vh - 60);
