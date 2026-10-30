@@ -129,8 +129,7 @@ const CONFIG = {
   const orbitFill = $('.orbit__fill');
   const orbitDeg = $('.orbit__deg');
   const orbit = $('.orbit');
-  const spinA = $('.mark__spin-a');
-  const spinB = $('.mark__spin-b');
+  const spin = $('.mark__spin');
   const dot = $('.mark__dot');
   const footMark = $('.footer__mark');
   const philo = $('#filosofia');
@@ -163,10 +162,9 @@ const CONFIG = {
 
     if (reduced) return;
 
-    // Hero: os crescentes giram em sentidos opostos; o ponto percorre a órbita
+    // Hero: o símbolo gira com o scroll; o ponto percorre a órbita
     if (y < vh * 1.4) {
-      spinA.style.transform = `rotate(${y * .06}deg)`;
-      spinB.style.transform = `rotate(${-y * .09}deg)`;
+      spin.style.transform = `rotate(${y * .06}deg)`;
       dot.style.transform = `rotate(${-50 + y * .14}deg)`;
     }
     // Rodapé: o símbolo completa a volta com a página

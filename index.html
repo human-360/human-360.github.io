@@ -38,10 +38,6 @@
   </script>
 </head>
 <body>
-  <!-- Motivo gráfico: crescente abstrato derivado do símbolo (não é o logótipo) -->
-  <svg class="sprite" aria-hidden="true" focusable="false">
-    <defs><path id="crescent" d="M54.18 -84.05 A100 100 0 1 0 54.18 84.05 A90 90 0 1 1 54.18 -84.05Z"/></defs>
-  </svg>
 
   <a class="skip" href="#conteudo">Saltar para o conteúdo</a>
 
@@ -93,12 +89,11 @@
 
     <!-- 01 · INÍCIO -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <svg class="mark" viewBox="-150 -150 300 300" aria-hidden="true">
-        <circle class="mark__orbit" r="138" pathLength="100"/>
-        <g class="mark__spin-a"><g class="mark__a"><use href="#crescent" fill="#103D3E" transform="rotate(-32)"/></g></g>
-        <g class="mark__spin-b"><g class="mark__b"><use href="#crescent" fill="#C65332" transform="rotate(148) scale(.9)"/></g></g>
-        <g class="mark__dot"><circle cx="138" cy="0" r="3.5"/></g>
-      </svg>
+      <div class="mark" aria-hidden="true">
+        <svg class="mark__ring" viewBox="-150 -150 300 300"><circle class="mark__orbit" r="138" pathLength="100"/><g class="mark__dot"><circle cx="138" cy="0" r="3.5"/></g></svg>
+        <!-- Símbolo original HUMAN 360, separado nas suas 4 peças (assets/simbolo) -->
+        <div class="mark__spin"><div class="sym"><img src="assets/simbolo/p2.png" alt="" style="--x:-1;--y:-1"><img src="assets/simbolo/p3.png" alt="" style="--x:1;--y:-1"><img src="assets/simbolo/p0.png" alt="" style="--x:1;--y:1"><img src="assets/simbolo/p1.png" alt="" style="--x:-1;--y:1"></div></div>
+      </div>
 
       <div class="wrap hero__grid">
         <p class="eyebrow hero__eyebrow" data-reveal><span class="deg">000°</span>HUMAN 360 · Desenvolvimento humano e organizacional</p>
@@ -136,10 +131,7 @@
           </div>
 
           <figure class="pair" aria-hidden="true" data-reveal>
-            <svg viewBox="-115 -115 230 230">
-              <g class="pair__a"><use href="#crescent" fill="#103D3E" transform="rotate(-32)"/></g>
-              <g class="pair__b"><use href="#crescent" fill="#C65332" transform="rotate(148) scale(.9)"/></g>
-            </svg>
+            <div class="sym"><img src="assets/simbolo/p2.png" alt="" style="--x:-1;--y:-1"><img src="assets/simbolo/p3.png" alt="" style="--x:1;--y:-1"><img src="assets/simbolo/p0.png" alt="" style="--x:1;--y:1"><img src="assets/simbolo/p1.png" alt="" style="--x:-1;--y:1"></div>
             <figcaption><span>Pessoas</span><i></i><span>Organizações</span></figcaption>
           </figure>
         </div>
@@ -207,10 +199,7 @@
                 <circle class="cycle__node" cx="30" cy="200" r="7"/>
               </svg>
               <div class="cycle__center"><span class="cycle__num">01</span><span class="cycle__name">Diagnosticar</span></div>
-              <svg class="cycle__mark" viewBox="-115 -115 230 230">
-                <g class="pair__a"><use href="#crescent" fill="#103D3E" transform="rotate(-32)"/></g>
-                <g class="pair__b"><use href="#crescent" fill="#C65332" transform="rotate(148) scale(.9)"/></g>
-              </svg>
+              <div class="cycle__mark"><div class="sym"><img src="assets/simbolo/p2.png" alt="" style="--x:-1;--y:-1"><img src="assets/simbolo/p3.png" alt="" style="--x:1;--y:-1"><img src="assets/simbolo/p0.png" alt="" style="--x:1;--y:1"><img src="assets/simbolo/p1.png" alt="" style="--x:-1;--y:1"></div></div>
             </div>
           </div>
 
@@ -308,10 +297,7 @@
 
         <!-- Fecho do ciclo: o mesmo símbolo do início, agora completo -->
         <figure class="pair pair--close" aria-hidden="true" data-reveal>
-          <svg viewBox="-115 -115 230 230">
-            <g class="pair__a"><use href="#crescent" fill="#103D3E" transform="rotate(-32)"/></g>
-            <g class="pair__b"><use href="#crescent" fill="#C65332" transform="rotate(148) scale(.9)"/></g>
-          </svg>
+          <div class="sym"><img src="assets/simbolo/p2.png" alt="" style="--x:-1;--y:-1"><img src="assets/simbolo/p3.png" alt="" style="--x:1;--y:-1"><img src="assets/simbolo/p0.png" alt="" style="--x:1;--y:1"><img src="assets/simbolo/p1.png" alt="" style="--x:-1;--y:1"></div>
         </figure>
 
         <div class="contact__grid">
@@ -408,7 +394,7 @@
         <img src="assets/logo-human360.png" width="900" height="277" alt="HUMAN 360" loading="lazy">
       </a>
       <p class="footer__claim">
-        <svg class="footer__mark" viewBox="-115 -115 230 230" aria-hidden="true"><g><use href="#crescent" fill="#103D3E" transform="rotate(-32)"/><use href="#crescent" fill="#C65332" transform="rotate(148) scale(.9)"/></g></svg>
+        <img class="footer__mark" src="assets/simbolo/simbolo.png" alt="" width="554" height="548" loading="lazy">
         <span>Pessoas que evoluem.<br>Empresas que crescem.</span>
       </p>
       <address>Rua A Gazeta d'Oeiras, 2 - 1.º C · Edifício Horizonte · 2780-171 Oeiras · Portugal</address>
