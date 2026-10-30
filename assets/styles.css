@@ -223,6 +223,12 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .sym img:nth-child(4) { transition-delay: .24s; }
 .js .sym img { transform: translate(calc(var(--x) * 16%), calc(var(--y) * 16%)) rotate(calc(var(--x) * var(--y) * -28deg)); opacity: 0; }
 .js.is-loaded .mark .sym img, .js .is-in .sym img, .js .is-in.sym img, .js .cycle.is-done .sym img { transform: none; opacity: 1; }
+/* Hero: com o scroll, o símbolo abre-se (--open 0 → 1, definido em main.js) */
+.js.is-loaded .mark .sym img {
+  transform: translate(calc(var(--x) * var(--open, 0) * 24%), calc(var(--y) * var(--open, 0) * 24%)) rotate(calc(var(--open, 0) * 32deg));
+}
+.mark.is-ready .sym img { transition: transform .25s linear, opacity 1s ease; }
+.mark__ring { transform: scale(calc(1 + var(--open, 0) * .12)); opacity: calc(1 - var(--open, 0) * .6); }
 .js .mark__dot { opacity: 0; }
 .is-loaded .mark__orbit { animation: draw 2.6s var(--ease) .6s forwards; }
 .is-loaded .mark__dot { animation: fadeIn .8s ease 2s forwards; }
