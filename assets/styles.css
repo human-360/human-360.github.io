@@ -383,42 +383,61 @@ html:not(.js) .acc__panel p { opacity: 1; transform: none; }
   .cycle__center { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
   .cycle__num { font-size: clamp(4rem, 8vw, 7.5rem); font-weight: 300; letter-spacing: -.05em; line-height: 1; color: var(--petrol); font-variant-numeric: tabular-nums; }
   .cycle__name { margin-top: .5rem; font-size: .8125rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--terra); }
-  .steps { grid-column: 8 / 13; padding-left: 0; gap: 0; }
+  .method__flow { grid-column: 8 / 13; }
+  .steps { padding-left: 0; gap: 0; }
   .steps::before, .steps::after { display: none; }
   .step { min-height: 62vh; display: flex; flex-direction: column; justify-content: center; padding-left: 0; border-top: 1px solid var(--rule); }
   .step::before { display: none; }
-  .commit { margin-left: calc(100% / 12 * 7 + 1rem); }
+  /* O compromisso fica ao lado do ciclo, que se fecha e revela o símbolo */
+  .commit { margin: 0; min-height: 76vh; display: flex; flex-direction: column; justify-content: center; border-top: 1px solid var(--rule); }
+  .cycle__center, .cycle__mark { transition: opacity .7s var(--ease); }
+  .cycle .cycle__mark { position: absolute; inset: 27%; width: 46%; height: 46%; opacity: 0; }
+  .cycle__mark g { transform-box: view-box; transform-origin: 50% 50%; transition: transform 1.4s var(--ease); }
+  .cycle__mark .pair__a { transform: translateX(-24%) rotate(-40deg); }
+  .cycle__mark .pair__b { transform: translateX(24%) rotate(40deg); }
+  .cycle.is-done .cycle__center { opacity: 0; }
+  .cycle.is-done .cycle .cycle__mark, .cycle.is-done .cycle__mark { opacity: 1; }
+  .cycle.is-done .cycle__mark g { transform: none; }
+  .cycle.is-done .cycle__base { stroke: var(--terra); }
 }
 
-/* ---------- Programas ---------- */
+/* ---------- Programas: quatro quartos de um círculo ---------- */
 .programs .sec__head { display: grid; gap: 0; }
 .programs .display { max-width: 15ch; }
-.prog { display: grid; gap: 3rem; }
-.prog__m { position: relative; padding-top: 1.5rem; border-top: 1px solid var(--rule); }
-.prog__n { display: block; font-size: .875rem; color: var(--terra); margin-bottom: 1.25rem; font-style: italic; }
-.prog__m h3 { font-size: clamp(1.4rem, 1rem + 1.2vw, 2rem); font-weight: 500; letter-spacing: -.025em; line-height: 1.15; color: var(--petrol); margin-bottom: 1rem; max-width: 16ch; }
-.prog__m p { max-width: 34ch; color: var(--ink); }
-/* Destaque em off-white: o verde-petróleo fica reservado à Filosofia */
-.prog__m--feat {
-  background: var(--paper); border-top: 2px solid var(--terra); overflow: hidden;
-  padding: clamp(2rem, 5vw, 4rem); min-height: 420px; display: flex; flex-direction: column; justify-content: flex-end;
+.prog { display: grid; border-bottom: 1px solid var(--rule); }
+.prog__m {
+  position: relative; display: grid; grid-template-columns: 44px 1fr; column-gap: 1.25rem; align-items: start;
+  padding-block: 2rem; border-top: 1px solid var(--rule);
 }
-.prog__m--feat h3 { font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3.25rem); letter-spacing: -.035em; max-width: 12ch; }
-.prog__m--feat .prog__n { margin-bottom: auto; }
-.prog__arc { position: absolute; width: 58%; right: -20%; top: -24%; pointer-events: none; }
-.prog__arc path { fill: none; stroke: var(--terra); stroke-width: .8; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 2.4s var(--ease) .3s; }
-.prog__m--feat.is-in .prog__arc path, html:not(.js) .prog__arc path { stroke-dashoffset: 0; }
+.prog__m::before {
+  content: ''; position: absolute; left: 0; top: -1px; width: 100%; height: 1px; background: var(--terra);
+  transform: scaleX(0); transform-origin: left; transition: transform .7s var(--ease);
+}
+.prog__m:hover::before { transform: scaleX(1); }
+.prog__q { width: 44px; height: 44px; grid-row: 1 / 4; }
+.prog__q circle { fill: none; stroke: var(--rule); stroke-width: 1; }
+.prog__q path { fill: var(--terra); transition: fill .4s; }
+.prog__q path[opacity] { fill: var(--petrol); }
+.prog__m:hover .prog__q path:not([opacity]) { fill: var(--petrol); }
+.prog__n { display: block; font-size: .8125rem; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: .5rem; }
+.prog__m h3 { font-size: clamp(1.3rem, 1rem + .9vw, 1.75rem); font-weight: 500; letter-spacing: -.025em; line-height: 1.18; color: var(--petrol); margin-bottom: .85rem; }
+.prog__m p { max-width: 34ch; color: var(--ink); }
 
 @media (min-width: 900px) {
   .programs .sec__head { grid-template-columns: repeat(12, 1fr); }
   .programs .sec__head > * { grid-column: 1 / 9; }
   .programs .sec__intro { grid-column: 9 / 13; align-self: end; margin: 0; }
-  .prog { grid-template-columns: repeat(12, 1fr); column-gap: 2rem; row-gap: 5rem; }
-  .prog__m--1 { grid-column: 1 / 6; grid-row: 1; align-self: start; }
-  .prog__m--feat { grid-column: 7 / 13; grid-row: 1 / 3; min-height: 560px; }
-  .prog__m--3 { grid-column: 2 / 7; grid-row: 2; align-self: end; }
-  .prog__m--4 { grid-column: 4 / 11; grid-row: 3; margin-top: 1rem; }
-  .prog__m--4 h3 { max-width: 22ch; }
+  .prog { grid-template-columns: repeat(2, 1fr); border-bottom: 0; }
+  .prog__m { grid-template-columns: 1fr; padding: 2.5rem 2rem 3rem 0; border-bottom: 1px solid var(--rule); border-top: 0; }
+  .prog__m::before { top: auto; bottom: -1px; }
+  .prog__q { grid-row: auto; width: 56px; height: 56px; margin-bottom: 2.5rem; }
+  .prog__m h3 { min-height: 2.4em; }
+}
+@media (min-width: 1200px) {
+  .prog { grid-template-columns: repeat(4, 1fr); }
+  .prog__m { padding: 0 2rem 3rem; border-left: 1px solid var(--rule); min-height: 380px; }
+  .prog__m:first-child { border-left: 0; padding-left: 0; }
+  .prog__m h3 { min-height: 3.6em; }
 }
 
 /* ---------- Filosofia (momento verde-petróleo) ---------- */

@@ -138,6 +138,7 @@ const CONFIG = {
   const steps = $$('.step');
   const nodes = $$('.cycle__node');
   const cycleSvg = $('.cycle svg');
+  const cycle = $('.cycle');
   const cNum = $('.cycle__num');
   const cName = $('.cycle__name');
   let active = -1;
@@ -182,6 +183,8 @@ const CONFIG = {
       stepsEl.style.setProperty('--p', mp.toFixed(4));
       if (cycleSvg) cycleSvg.style.setProperty('--p', mp.toFixed(4));
       const idx = Math.min(steps.length - 1, Math.floor(mp * steps.length));
+      const commit = $('.commit');
+      if (cycle) cycle.classList.toggle('is-done', commit.getBoundingClientRect().top < vh * .6);
       if (idx !== active) {
         active = idx;
         steps.forEach((s, i) => {
