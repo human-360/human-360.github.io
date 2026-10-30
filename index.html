@@ -290,32 +290,27 @@
     </section>
 
     <!-- 07 · CONTACTOS -->
-    <section class="sec contact" id="contactos" aria-labelledby="contact-title">
-      <div class="wrap">
-        <p class="eyebrow" data-reveal><span class="deg">360°</span>Contactos</p>
-        <h2 class="display contact__title" id="contact-title" data-split>O próximo passo no crescimento da sua empresa começa nas <em>pessoas.</em></h2>
-
-        <!-- Fecho do ciclo: o mesmo símbolo do início, agora completo -->
-        <figure class="pair pair--close" aria-hidden="true" data-reveal>
-          <div class="sym"><img src="assets/simbolo/p2.png" alt="" style="--x:-1;--y:-1"><img src="assets/simbolo/p3.png" alt="" style="--x:1;--y:-1"><img src="assets/simbolo/p0.png" alt="" style="--x:1;--y:1"><img src="assets/simbolo/p1.png" alt="" style="--x:-1;--y:1"></div>
-        </figure>
-
-        <div class="contact__grid">
-          <div class="contact__info" data-reveal>
+    <section class="contact" id="contactos" aria-labelledby="contact-title">
+      <div class="contact__split">
+        <div class="contact__info">
+          <h2 class="display contact__title" id="contact-title" data-split>O próximo passo começa nas <em>pessoas.</em></h2>
+          <div class="contact__text" data-reveal>
             <p>Quer desenvolver as suas equipas, fortalecer as lideranças ou transformar a gestão de pessoas na sua organização?</p>
             <p>Vamos conhecer os seus desafios e construir a solução certa para a sua empresa.</p>
-            <a class="cta" href="#f-nome" data-focus-form><span class="cta__dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>Fale com a nossa equipa</a>
-            <!-- WhatsApp: fica oculto até se definir o número em CONFIG.whatsappNumber (assets/main.js) -->
-            <a class="link wa" href="#" data-whatsapp hidden target="_blank" rel="noopener">Conversar por WhatsApp</a>
-            <address>
-              <span class="address__label">Morada</span>
-              Rua A Gazeta d'Oeiras, 2 - 1.º C<br>
-              Edifício Horizonte<br>
-              2780-171 Oeiras<br>
-              Portugal
-            </address>
           </div>
+          <a class="contact__link" href="#f-nome" data-focus-form data-reveal>Fale com a nossa equipa</a>
+          <!-- WhatsApp: fica oculto até se definir o número em CONFIG.whatsappNumber (assets/main.js) -->
+          <a class="contact__link contact__link--wa" href="#" data-whatsapp hidden target="_blank" rel="noopener">Conversar por WhatsApp</a>
+          <address data-reveal>
+            <span class="address__label">Morada</span>
+            Rua A Gazeta d'Oeiras, 2 - 1.º C<br>
+            Edifício Horizonte<br>
+            2780-171 Oeiras, Portugal
+          </address>
+        </div>
 
+        <div class="contact__panel">
+          <h3 class="form__title" data-reveal>Conte-nos sobre o seu desafio</h3>
           <form class="form" id="form" novalidate data-reveal>
             <div class="form__row">
               <div class="field">
@@ -379,7 +374,7 @@
             <p class="field__err" id="e-ok"></p>
 
             <div class="form__foot">
-              <button class="cta cta--btn" type="submit"><span class="cta__dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>Enviar mensagem</button>
+              <button class="btn" type="submit">Enviar mensagem</button>
               <p class="form__status" role="status" aria-live="polite"></p>
             </div>
           </form>
@@ -389,17 +384,40 @@
   </main>
 
   <footer class="footer">
-    <div class="wrap footer__in">
-      <a class="brand brand--foot" href="#inicio" aria-label="HUMAN 360, voltar ao início">
-        <img src="assets/logo-human360.png" width="900" height="277" alt="HUMAN 360" loading="lazy">
-      </a>
-      <p class="footer__claim">
-        <img class="footer__mark" src="assets/simbolo/simbolo.png" alt="" width="554" height="548" loading="lazy">
-        <span>Pessoas que evoluem.<br>Empresas que crescem.</span>
-      </p>
-      <address>Rua A Gazeta d'Oeiras, 2 - 1.º C · Edifício Horizonte · 2780-171 Oeiras · Portugal</address>
-      <p class="footer__legal">© <span data-year>2026</span> HUMAN 360</p>
-      <a class="link footer__top" href="#inicio">Voltar ao início</a>
+    <div class="wrap">
+      <div class="footer__top">
+        <p class="footer__claim">Pessoas que evoluem,<br>empresas que <em>crescem.</em></p>
+        <a class="cta" href="#contactos"><span class="cta__dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>Fale com a nossa equipa</a>
+      </div>
+
+      <div class="footer__grid">
+        <a class="brand brand--foot" href="#inicio" aria-label="HUMAN 360, voltar ao início">
+          <img src="assets/logo-human360.png" width="900" height="277" alt="HUMAN 360" loading="lazy">
+        </a>
+        <nav class="footer__col" aria-label="Navegação do rodapé">
+          <p class="footer__label">Navegação</p>
+          <ul>
+            <li><a href="#sobre">Sobre Nós</a></li>
+            <li><a href="#solucoes">Soluções</a></li>
+            <li><a href="#metodologia">Metodologia</a></li>
+            <li><a href="#programas">Programas</a></li>
+            <li><a href="#filosofia">A nossa filosofia</a></li>
+          </ul>
+        </nav>
+        <div class="footer__col">
+          <p class="footer__label">Morada</p>
+          <address>Rua A Gazeta d'Oeiras, 2 - 1.º C<br>Edifício Horizonte<br>2780-171 Oeiras<br>Portugal</address>
+        </div>
+        <div class="footer__col">
+          <p class="footer__label">Contacto</p>
+          <ul><li><a href="#contactos">Formulário de contacto</a></li></ul>
+        </div>
+      </div>
+
+      <div class="footer__bar">
+        <p>© <span data-year>2026</span> HUMAN 360 · Desenvolvimento humano e organizacional</p>
+        <a class="footer__up" href="#inicio">Voltar ao início <span aria-hidden="true">↑</span></a>
+      </div>
     </div>
   </footer>
 

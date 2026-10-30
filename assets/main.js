@@ -131,7 +131,7 @@ const CONFIG = {
   const orbit = $('.orbit');
   const spin = $('.mark__spin');
   const dot = $('.mark__dot');
-  const footMark = $('.footer__mark');
+  const footer = $('.footer');
   const philo = $('#filosofia');
   const stepsEl = $('.steps');
   const steps = $$('.step');
@@ -168,7 +168,7 @@ const CONFIG = {
       dot.style.transform = `rotate(${-50 + y * .14}deg)`;
     }
     // Rodapé: o símbolo completa a volta com a página
-    footMark.style.setProperty('--spin', (p * 360).toFixed(1) + 'deg');
+    orbit.classList.toggle('is-off', footer.getBoundingClientRect().top < vh - 60);
 
     // Filosofia: o verde-petróleo cresce em círculo
     const t = clamp((vh - pr.top) / (vh * .95));
