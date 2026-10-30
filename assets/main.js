@@ -1,15 +1,5 @@
 /* HUMAN 360 · interações */
 
-/* ===== CONFIGURAÇÃO PENDENTE =====
-   formEndpoint: URL que recebe o formulário via POST (JSON). Ex.: Formspree, Basin, ou API própria.
-                 Enquanto estiver vazio, o formulário valida mas NÃO envia, e informa o visitante.
-   whatsappNumber: número em formato internacional, só dígitos (ex.: 244900000000). Vazio = botão oculto. */
-const CONFIG = {
-  formEndpoint: '',
-  whatsappNumber: '',
-  whatsappMessage: 'Olá. Gostaria de conhecer as soluções da HUMAN 360.'
-};
-
 (() => {
   const doc = document.documentElement;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -128,17 +118,6 @@ const CONFIG = {
     };
     rows.forEach(r => $('.sol__btn', r).addEventListener('click', () => setOpen(r.classList.contains('is-open') ? null : r)));
 
-    // "Falar sobre esta área": vai ao formulário com a área já escolhida
-    $$('.sol__cta', sol).forEach(a => a.addEventListener('click', e => {
-      e.preventDefault();
-      const select = $('#f-area');
-      select.value = a.dataset.area;
-      select.removeAttribute('aria-invalid');
-      $('#e-area').textContent = '';
-      $('#contactos').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-      setTimeout(() => $('#f-nome').focus({ preventScroll: true }), reduced ? 0 : 800);
-    }));
-
     if ('IntersectionObserver' in window && !reduced) {
       const sio = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting) { sol.classList.add('is-in'); sio.disconnect(); }
@@ -222,90 +201,6 @@ const CONFIG = {
   window.addEventListener('resize', requestTick);
   onScroll();
   if (reduced) steps.forEach(s => s.classList.add('is-past'));
-
-  /* ---------- WhatsApp (só aparece com número configurado) ---------- */
-  const wa = $('[data-whatsapp]');
-  if (wa && /^\d{8,15}$/.test(CONFIG.whatsappNumber)) {
-    wa.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`;
-    wa.hidden = false;
-  }
-
-  /* ---------- CTA de contacto leva ao formulário ---------- */
-  $$('[data-focus-form]').forEach(a => a.addEventListener('click', e => {
-    e.preventDefault();
-    const first = $('#f-nome');
-    $('#form').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
-    setTimeout(() => first.focus({ preventScroll: true }), reduced ? 0 : 600);
-  }));
-
-  /* ---------- Formulário ---------- */
-  const form = $('#form');
-  const status = $('.form__status');
-  const rules = {
-    nome: v => v.trim().length >= 2 || 'Indique o seu nome.',
-    empresa: v => v.trim().length >= 2 || 'Indique o nome da empresa.',
-    email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Indique um email válido.',
-    telefone: v => !v.trim() || /^[+\d][\d\s().-]{7,19}$/.test(v.trim()) || 'Verifique o número de telefone.',
-    area: v => !!v || 'Selecione uma área de interesse.',
-    mensagem: v => v.trim().length >= 10 || 'Descreva brevemente o seu pedido (mínimo 10 caracteres).',
-    consentimento: (v, el) => el.checked || 'É necessário autorizar a utilização dos dados.'
-  };
-  const errIds = { nome: 'e-nome', empresa: 'e-empresa', email: 'e-email', telefone: 'e-tel', area: 'e-area', mensagem: 'e-msg', consentimento: 'e-ok' };
-
-  const check = el => {
-    const res = rules[el.name](el.value, el);
-    const msg = res === true ? '' : res;
-    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
-    $('#' + errIds[el.name]).textContent = msg;
-    return !msg;
-  };
-  Object.keys(rules).forEach(name => {
-    const el = form.elements[name];
-    el.addEventListener('blur', () => { if (el.value || el.type === 'checkbox') check(el); });
-    el.addEventListener('input', () => { if (el.getAttribute('aria-invalid') === 'true') check(el); });
-    el.addEventListener('change', () => { if (el.getAttribute('aria-invalid') === 'true') check(el); });
-  });
-
-  const setStatus = (msg, kind) => {
-    status.textContent = msg;
-    status.className = 'form__status' + (kind ? ' is-' + kind : '');
-  };
-
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    setStatus('');
-    const fields = Object.keys(rules).map(n => form.elements[n]);
-    const invalid = fields.filter(el => !check(el));
-    if (invalid.length) { invalid[0].focus(); return; }
-    if (form.elements.website.value) return; // armadilha anti-spam
-
-    if (!CONFIG.formEndpoint) {
-      console.info('[HUMAN 360] Formulário sem endpoint configurado (CONFIG.formEndpoint em assets/main.js).');
-      setStatus('O envio de mensagens por este formulário ainda não está ativo. A sua mensagem não foi enviada. Pedimos desculpa pelo incómodo.', 'warn');
-      return;
-    }
-
-    const btn = $('button[type="submit"]', form);
-    btn.disabled = true;
-    setStatus('A enviar…');
-    const data = Object.fromEntries(['nome', 'empresa', 'email', 'telefone', 'area', 'mensagem'].map(n => [n, form.elements[n].value.trim()]));
-    try {
-      const res = await fetch(CONFIG.formEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(data)
-      });
-      if (!res.ok) throw new Error(res.status);
-      form.reset();
-      fields.forEach(el => el.removeAttribute('aria-invalid'));
-      setStatus('Obrigado. A sua mensagem foi enviada e a nossa equipa entrará em contacto.', 'ok');
-    } catch (err) {
-      console.error('[HUMAN 360] Falha no envio do formulário', err);
-      setStatus('Não foi possível enviar a mensagem. Por favor, tente novamente dentro de alguns instantes.', 'warn');
-    } finally {
-      btn.disabled = false;
-    }
-  });
 
   $('[data-year]').textContent = new Date().getFullYear();
 })();
