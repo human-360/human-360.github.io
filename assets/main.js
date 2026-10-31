@@ -165,7 +165,7 @@
     if (y < vh * 1.2) {
       const k = clamp(y / vh);
       hero.style.setProperty('--hy', (y * .28).toFixed(1) + 'px');
-      hero.style.setProperty('--ho', (1 - k * 1.1).toFixed(3));
+      hero.style.setProperty('--ho', (1 - k * .75).toFixed(3));
       hero.style.setProperty('--hp', (y * .12).toFixed(1) + 'px');
       hero.style.setProperty('--hs', (1 + k * .06).toFixed(4));
     }
