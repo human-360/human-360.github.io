@@ -283,11 +283,35 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .pair figcaption span:last-child { color: var(--terra); }
 .pair figcaption i { flex: 1; height: 1px; background: var(--rule); }
 
+/* compromisso: cartão petróleo com o anel 360° a fechar a secção */
 .pull {
-  margin-top: clamp(4.5rem, 10vw, 9rem); padding-top: 2rem; border-top: 1px solid var(--rule);
-  max-width: 980px; margin-left: auto;
+  position: relative; isolation: isolate; overflow: hidden;
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+  padding: clamp(2.75rem, 6vw, 5.5rem) clamp(1.75rem, 6vw, 5.5rem);
+  border-radius: clamp(20px, 2.4vw, 32px);
+  background: radial-gradient(120% 150% at 0% 0%, #1A5554 0%, var(--petrol) 50%, #0B2E2F 100%);
+  box-shadow: 0 48px 90px -56px rgba(16, 61, 62, .8), 0 2px 6px rgba(16, 61, 62, .08);
 }
-.pull p { font-size: clamp(1.5rem, 1rem + 2.1vw, 2.75rem); font-weight: 300; line-height: 1.25; letter-spacing: -.025em; color: var(--petrol); }
+.pull::before, .pull::after {
+  content: ''; position: absolute; z-index: -1; border-radius: 50%; pointer-events: none;
+  width: clamp(240px, 36vw, 500px); aspect-ratio: 1; right: -9%; top: 50%;
+}
+.pull::before {
+  transform: translateY(-50%);
+  border: 1px solid rgba(238, 154, 120, .28);
+  box-shadow: 0 0 0 clamp(26px, 3.6vw, 52px) rgba(255, 255, 255, .035), 0 0 0 clamp(52px, 7.2vw, 104px) rgba(255, 255, 255, .02);
+}
+.pull::after { transform: translateY(-50%) rotate(-38deg); border: 2px solid transparent; border-top-color: var(--terra-soft); opacity: .85; }
+.pull__kicker {
+  display: flex; align-items: center; gap: .875rem; margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+  font-size: .75rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--terra-soft);
+}
+.pull__kicker::before { content: ''; width: 2.25rem; height: 1px; background: currentColor; }
+.pull__text { max-width: 24ch; font-size: clamp(1.625rem, 1rem + 2.3vw, 3rem); font-weight: 300; line-height: 1.2; letter-spacing: -.025em; color: var(--white); }
+.pull__text em { color: var(--terra-soft); }
+@media (max-width: 719px) {
+  .pull::before, .pull::after { width: 220px; right: -90px; top: 0; }
+}
 
 @media (min-width: 900px) {
   .about__body { grid-template-columns: repeat(12, 1fr); align-items: center; }
