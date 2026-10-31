@@ -681,8 +681,8 @@ html.lenis { scroll-behavior: auto !important; }
 .js [data-split] .wi { display: inline-block; transform: translateY(115%); transition: transform .85s var(--ease); transition-delay: calc(var(--i, 0) * 40ms); }
 .js [data-split].is-in .wi { transform: none; }
 /* texto: sobe e entra em foco (desfocado → nítido) */
-.js [data-reveal] { opacity: 0; transform: translateY(28px); filter: blur(5px); transition: opacity .75s var(--ease), transform .9s var(--ease), filter .75s var(--ease); transition-delay: var(--d, 0s); }
-.js [data-reveal].is-in { opacity: 1; transform: none; filter: none; }
+.js [data-reveal] { opacity: 0; transform: translateY(34px) skewY(1.5deg); transform-origin: 0 100%; transition: opacity .75s var(--ease), transform .95s var(--ease); transition-delay: var(--d, 0s); }
+.js [data-reveal].is-in { opacity: 1; transform: none; }
 /* cartões: abrem a partir do centro, como uma janela, e a fotografia assenta por dentro */
 .js [data-reveal="card"] {
   --rad: clamp(20px, 2.4vw, 32px);
