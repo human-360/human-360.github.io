@@ -591,7 +591,7 @@ html:not(.js) .sol__inner p { color: var(--ink); }
     radial-gradient(120% 150% at 0% 0%, #1A5554 0%, var(--petrol) 50%, #0B2E2F 100%);
   box-shadow: 0 48px 90px -56px rgba(16, 61, 62, .8), 0 2px 6px rgba(16, 61, 62, .08);
 }
-.footer__claim { font-size: clamp(2rem, 1.1rem + 3.6vw, 4.5rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.04; color: var(--white); }
+.footer__claim { font-size: clamp(1.875rem, 1rem + 2.9vw, 3.75rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.04; color: var(--white); }
 .footer__claim em { color: var(--terra-soft); }
 .footer__top .cta { justify-self: start; color: var(--white); }
 .footer__top .cta__dot { background: var(--terra); box-shadow: 0 14px 26px -10px rgba(0, 0, 0, .45); }
@@ -628,7 +628,7 @@ html:not(.js) .sol__inner p { color: var(--ink); }
 @media (min-width: 1000px) {
   .footer__top { grid-template-columns: 1fr auto; }
   .footer__top .cta { justify-self: end; margin-bottom: .6rem; }
-  .footer__grid { grid-template-columns: 5fr 2.5fr 2.5fr 2fr; }
+  .footer__grid { grid-template-columns: 4fr 2.25fr 3fr 2.5fr; }
 }
 
 /* ---------- Revelações ---------- */
