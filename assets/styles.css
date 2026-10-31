@@ -288,7 +288,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 }
 .bento__kicker::before { content: ''; width: 1.75rem; height: 1px; background: currentColor; }
 .bento__photo { padding: 0; aspect-ratio: 4 / 3; background: var(--paper); }
-.bento__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 100%; transition: transform 1.2s var(--ease); }
+.bento__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; transition: transform 1.2s var(--ease); }
 .bento__photo:hover img { transform: scale(1.03); }
 .bento__photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(11, 46, 47, .72) 0%, rgba(11, 46, 47, .2) 32%, rgba(11, 46, 47, 0) 55%); }
 .bento__photo figcaption {
