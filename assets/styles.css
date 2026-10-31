@@ -66,6 +66,8 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
   color: var(--petrol);
   margin-bottom: clamp(1.75rem, 3vw, 2.75rem);
 }
+.eyebrow::before { content: ''; width: 1.75rem; height: 1px; background: var(--terra); }
+.eyebrow--light::before { background: var(--terra-soft); }
 .deg {
   font-weight: 400; letter-spacing: .04em; color: var(--terra);
   padding-right: .9rem; border-right: 1px solid var(--rule);
