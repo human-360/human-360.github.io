@@ -527,13 +527,14 @@ html:not(.js) .sol__inner p { color: var(--ink); }
 .team__who strong { font-size: clamp(1.375rem, 1.1rem + .9vw, 1.875rem); font-weight: 500; letter-spacing: -.03em; line-height: 1.2; color: var(--petrol); }
 .team__who span { font-size: .75rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--terra); }
 .btn.btn--solid { display: inline-flex; align-items: center; justify-content: center; width: auto; min-height: 56px; padding: 0 2rem; box-shadow: none; white-space: nowrap; }
-.btn.btn--solid:hover { background: #0B2E2F; }
+.btn.btn--solid { transition: background-color .35s var(--ease), box-shadow .35s var(--ease); }
+.btn.btn--solid:hover { background: #0B2E2F; box-shadow: 0 18px 32px -16px rgba(16, 61, 62, .65); }
 .team .btn--solid { justify-self: start; min-width: 13.5rem; font-variant-numeric: tabular-nums; letter-spacing: .01em; }
 @media (min-width: 720px) {
   .team__m { grid-template-columns: 1fr auto; align-items: center; gap: 2rem; }
 }
 .btn {
-  width: 100%; min-height: 60px; border: 0; border-radius: 2px; cursor: pointer;
+  width: 100%; min-height: 60px; border: 0; border-radius: 999px; cursor: pointer;
   background: var(--petrol); color: var(--white); font-weight: 500; font-size: 1.0625rem;
   box-shadow: 0 16px 30px -18px rgba(16, 61, 62, .7);
   transition: background-color .35s var(--ease);
