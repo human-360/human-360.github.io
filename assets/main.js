@@ -31,6 +31,7 @@
       });
     };
     walk(el);
+    el.style.setProperty('--n', i);
   });
 
   /* ---------- Reveal ao entrar no ecrã ---------- */
@@ -133,6 +134,8 @@
   const footer = $('.footer');
   const philo = $('#filosofia');
   const parallax = $$('.bento__photo, .pull');
+  const titles = $$('[data-split]');
+  const bands = $$('.marquee').map(el => ({ el, track: $('.marquee__track', el), dir: +el.dataset.dir || 1, w: 0 }));
   const stepsEl = $('.steps');
   const steps = $$('.step');
   const nodes = $$('.cycle__node');
@@ -150,7 +153,10 @@
     el.style.setProperty(prop, val);
   };
   let maxScroll = 0;
-  const measure = () => { maxScroll = document.documentElement.scrollHeight - window.innerHeight; };
+  const measure = () => {
+    maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    bands.forEach(b => { b.w = b.track.scrollWidth; });
+  };
   measure();
   window.addEventListener('load', measure);
   if ('ResizeObserver' in window) new ResizeObserver(measure).observe(document.body);
@@ -166,6 +172,8 @@
     const px = reduced ? [] : parallax.map(el => el.getBoundingClientRect());
     const sr = stepsEl && !reduced ? stepsEl.getBoundingClientRect() : null;
     const cTop = sr && commit ? commit.getBoundingClientRect().top : 0;
+    const tr = reduced ? [] : titles.map(el => el.getBoundingClientRect().top);
+    const br = reduced ? [] : bands.map(b => b.el.getBoundingClientRect());
 
     // 2) Escritas depois
     // Indicador: a página completa 360°
@@ -187,6 +195,21 @@
       const off = (r.top + r.height / 2 - vh / 2) / vh;
       put(el, 'py' + i, '--py', (off * -50).toFixed(0) + 'px');
       put(el, 'rot' + i, '--rot', (off * -90).toFixed(0) + 'deg');
+    });
+
+    // Títulos: as palavras acendem enquanto o título sobe no ecrã
+    titles.forEach((el, i) => {
+      const tp = clamp((vh * .92 - tr[i]) / (vh * .5));
+      put(el, 'tp' + i, '--tp', tp.toFixed(2));
+    });
+
+    // Faixas tipográficas: deslizam em sentidos opostos ao ritmo do scroll
+    bands.forEach((b, i) => {
+      const r = br[i];
+      if (r.bottom < -50 || r.top > vh + 50) return;
+      const shift = (vh - r.top) * .45;
+      const mx = b.dir > 0 ? -shift : shift - b.w / 4;
+      put(b.track, 'mx' + i, '--mx', mx.toFixed(0) + 'px');
     });
 
     // Rodapé: o símbolo completa a volta com a página
@@ -217,6 +240,21 @@
       }
     }
   };
+
+  /* ---------- Scroll suave com inércia (só rato/trackpad; telemóvel mantém o nativo) ---------- */
+  if (window.Lenis && !reduced && window.matchMedia('(pointer: fine)').matches) {
+    const lenis = new window.Lenis({ lerp: .085, wheelMultiplier: .95 });
+    const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      const target = id.length > 1 ? $(id) : null;
+      if (!target && id !== '#') return;
+      e.preventDefault();
+      lenis.scrollTo(target || 0, { offset: -(header.offsetHeight - 1), duration: 1.4 });
+      if (target) history.replaceState(null, '', id);
+    }));
+  }
 
   let ticking = false;
   const requestTick = () => {
