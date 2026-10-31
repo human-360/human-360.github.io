@@ -153,10 +153,8 @@
     const pr = philo.getBoundingClientRect();
     orbit.classList.toggle('on-dark', pr.top < vh - 40 && pr.bottom > vh - 40);
 
-    // Header discreto: esconde ao descer, volta ao subir
+    // Header fixo: fica sempre visível, só ganha fundo ao descer
     header.classList.toggle('is-scrolled', y > 24);
-    if (menu.hidden) header.classList.toggle('is-hidden', y > vh * .9 && y > lastY + 2);
-    if (y < lastY - 2) header.classList.remove('is-hidden');
     lastY = y;
 
     if (reduced) return;
