@@ -42,7 +42,7 @@
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
       });
-    }, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 8% 0px' });
     revealables.forEach(el => io.observe(el));
   }
   requestAnimationFrame(() => doc.classList.add('is-loaded'));
