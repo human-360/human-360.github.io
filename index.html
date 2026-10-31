@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=21">
+  <link rel="stylesheet" href="assets/styles.css?v=22">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -117,21 +117,33 @@
     <section class="sec about" id="sobre" aria-labelledby="about-title">
       <div class="wrap">
         <p class="eyebrow" data-reveal><span class="deg">060°</span>O que é a HUMAN 360?</p>
-        <div class="about__head">
-          <h2 class="display about__title" id="about-title" data-split>O desenvolvimento das empresas começa nas <em>pessoas.</em></h2>
-          <p class="about__lead" data-reveal style="--d:.2s">O HUMAN 360 é um projeto de desenvolvimento humano e organizacional que apoia empresas na valorização do seu capital humano, na capacitação das suas lideranças e na melhoria do desempenho das equipas.</p>
-        </div>
+        <h2 class="display about__title" id="about-title" data-split>O desenvolvimento das empresas começa nas <em>pessoas.</em></h2>
 
-        <div class="about__body">
-          <div class="about__cols" data-reveal>
-            <p>Acreditamos que o verdadeiro crescimento acontece quando as pessoas desenvolvem competências, assumem responsabilidades e transformam conhecimento em ação.</p>
-            <p>Por isso, criamos soluções ajustadas à realidade de cada organização, combinando formação, mentoria, consultoria e acompanhamento prático.</p>
+        <!-- bento: fotografia, resumo, símbolo e crença em cartões arredondados -->
+        <div class="bento">
+          <figure class="bento__card bento__photo" data-reveal>
+            <picture>
+              <source type="image/webp" srcset="assets/foto/hero-750.webp 750w, assets/foto/hero.webp 1125w" sizes="(min-width: 900px) 40vw, 100vw">
+              <img src="assets/foto/hero.jpg" width="1125" height="900" alt="Equipa reunida à mesa numa sessão de trabalho" loading="lazy" decoding="async">
+            </picture>
+            <figcaption>Formação • Mentoria • Consultoria</figcaption>
+          </figure>
+
+          <div class="bento__card bento__lead" data-reveal style="--d:.1s">
+            <p class="bento__kicker">O que fazemos</p>
+            <p class="bento__big">Apoiamos empresas na valorização do seu capital humano, na capacitação das lideranças e no desempenho das equipas.</p>
+            <p>Criamos soluções ajustadas à realidade de cada organização, combinando formação, mentoria, consultoria e acompanhamento prático.</p>
           </div>
 
-          <figure class="pair" aria-hidden="true" data-reveal>
+          <figure class="bento__card bento__sym pair" aria-hidden="true" data-reveal style="--d:.15s">
             <div class="sym"><img src="assets/simbolo/p2.png" alt="" style="--x:-1;--y:-1"><img src="assets/simbolo/p3.png" alt="" style="--x:1;--y:-1"><img src="assets/simbolo/p0.png" alt="" style="--x:1;--y:1"><img src="assets/simbolo/p1.png" alt="" style="--x:-1;--y:1"></div>
             <figcaption><span>Pessoas</span><i></i><span>Organizações</span></figcaption>
           </figure>
+
+          <div class="bento__card bento__belief" data-reveal style="--d:.2s">
+            <p class="bento__kicker">Acreditamos</p>
+            <p>O verdadeiro crescimento acontece quando as pessoas desenvolvem competências, assumem responsabilidades e <strong>transformam conhecimento em ação.</strong></p>
+          </div>
         </div>
 
         <blockquote class="pull" data-reveal>
