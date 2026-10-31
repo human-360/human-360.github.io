@@ -132,6 +132,8 @@
   const orbit = $('.orbit');
   const footer = $('.footer');
   const philo = $('#filosofia');
+  const hero = $('.hero');
+  const parallax = $$('.bento__photo, .pull');
   const stepsEl = $('.steps');
   const steps = $$('.step');
   const nodes = $$('.cycle__node');
@@ -158,6 +160,24 @@
     lastY = y;
 
     if (reduced) return;
+
+    // Hero: texto sobe mais devagar e esbate-se; fotografia afunda e cresce um pouco
+    if (y < vh * 1.2) {
+      const k = clamp(y / vh);
+      hero.style.setProperty('--hy', (y * .28).toFixed(1) + 'px');
+      hero.style.setProperty('--ho', (1 - k * 1.1).toFixed(3));
+      hero.style.setProperty('--hp', (y * .12).toFixed(1) + 'px');
+      hero.style.setProperty('--hs', (1 + k * .06).toFixed(4));
+    }
+
+    // Parallax das fotografias e do anel do compromisso
+    parallax.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      const off = (r.top + r.height / 2 - vh / 2) / vh;
+      el.style.setProperty('--py', (off * -60).toFixed(1) + 'px');
+      el.style.setProperty('--rot', (off * -90).toFixed(1) + 'deg');
+    });
 
     // Rodapé: o símbolo completa a volta com a página
     orbit.classList.toggle('is-off', y < vh * .5 || footer.getBoundingClientRect().top < vh - 60);

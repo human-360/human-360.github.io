@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=24">
+  <link rel="stylesheet" href="assets/styles.css?v=25">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -121,7 +121,7 @@
 
         <!-- bento: fotografia, resumo, símbolo e crença em cartões arredondados -->
         <div class="bento">
-          <figure class="bento__card bento__photo" data-reveal>
+          <figure class="bento__card bento__photo" data-reveal="card">
             <picture>
               <source type="image/webp" srcset="assets/foto/sobre-reuniao-750.webp 750w, assets/foto/sobre-reuniao.webp 1280w" sizes="(min-width: 900px) 40vw, 100vw">
               <img src="assets/foto/sobre-reuniao.jpg" width="1280" height="1714" alt="Três profissionais em conversa à mesa numa reunião de trabalho" loading="lazy" decoding="async">
@@ -129,24 +129,24 @@
             <figcaption>Formação • Mentoria • Consultoria</figcaption>
           </figure>
 
-          <div class="bento__card bento__lead" data-reveal style="--d:.1s">
+          <div class="bento__card bento__lead" data-reveal="card" style="--d:.1s">
             <p class="bento__kicker">O que fazemos</p>
             <p class="bento__big">Apoiamos empresas na valorização do seu capital humano, na capacitação das lideranças e no desempenho das equipas.</p>
             <p>Criamos soluções ajustadas à realidade de cada organização, combinando formação, mentoria, consultoria e acompanhamento prático.</p>
           </div>
 
-          <figure class="bento__card bento__sym pair" aria-hidden="true" data-reveal style="--d:.15s">
+          <figure class="bento__card bento__sym pair" aria-hidden="true" data-reveal="card" style="--d:.15s">
             <div class="sym"><img src="assets/simbolo/p2.png" alt="" style="--x:-1;--y:-1"><img src="assets/simbolo/p3.png" alt="" style="--x:1;--y:-1"><img src="assets/simbolo/p0.png" alt="" style="--x:1;--y:1"><img src="assets/simbolo/p1.png" alt="" style="--x:-1;--y:1"></div>
             <figcaption><span>Pessoas</span><i></i><span>Organizações</span></figcaption>
           </figure>
 
-          <div class="bento__card bento__belief" data-reveal style="--d:.2s">
+          <div class="bento__card bento__belief" data-reveal="card" style="--d:.2s">
             <p class="bento__kicker">Acreditamos</p>
             <p>O verdadeiro crescimento acontece quando as pessoas desenvolvem competências, assumem responsabilidades e <strong>transformam conhecimento em ação.</strong></p>
           </div>
         </div>
 
-        <blockquote class="pull" data-reveal>
+        <blockquote class="pull" data-reveal="card">
           <p class="pull__kicker">O nosso compromisso</p>
           <p class="pull__text">Queremos transformar conhecimento em mudanças concretas, <em>com impacto real nos resultados.</em></p>
         </blockquote>
@@ -377,7 +377,7 @@
 
   <footer class="footer">
     <div class="wrap">
-      <div class="footer__top">
+      <div class="footer__top" data-reveal="card">
         <p class="footer__claim">Pessoas que evoluem e<br>empresas que <em>crescem.</em></p>      </div>
 
       <div class="footer__grid">
@@ -420,6 +420,6 @@
     </div>
   </footer>
 
-  <script src="assets/main.js?v=15" defer></script>
+  <script src="assets/main.js?v=16" defer></script>
 </body>
 </html>
