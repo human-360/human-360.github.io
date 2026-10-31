@@ -132,7 +132,6 @@
   const orbit = $('.orbit');
   const footer = $('.footer');
   const philo = $('#filosofia');
-  const hero = $('.hero');
   const parallax = $$('.bento__photo, .pull');
   const stepsEl = $('.steps');
   const steps = $$('.step');
@@ -143,16 +142,36 @@
   const cName = $('.cycle__name');
   let active = -1;
 
+  // Valores já escritos: só tocamos no DOM quando algo muda (evita trabalho por frame)
+  const last = {};
+  const put = (el, key, prop, val) => {
+    if (last[key] === val) return;
+    last[key] = val;
+    el.style.setProperty(prop, val);
+  };
+  let maxScroll = 0;
+  const measure = () => { maxScroll = document.documentElement.scrollHeight - window.innerHeight; };
+  measure();
+  window.addEventListener('load', measure);
+  if ('ResizeObserver' in window) new ResizeObserver(measure).observe(document.body);
+  const commit = $('.commit');
+
   const onScroll = () => {
+    // 1) Leituras primeiro (todas juntas, um só cálculo de layout)
     const y = window.scrollY;
     const vh = window.innerHeight;
-    const max = document.documentElement.scrollHeight - vh;
-    const p = max > 0 ? clamp(y / max) : 0;
-
-    // Indicador: a página completa 360°
-    orbitFill.style.strokeDashoffset = 100 - p * 100;
-    orbitDeg.textContent = String(Math.round(p * 360)).padStart(3, '0') + '°';
+    const p = maxScroll > 0 ? clamp(y / maxScroll) : 0;
     const pr = philo.getBoundingClientRect();
+    const fTop = footer.getBoundingClientRect().top;
+    const px = reduced ? [] : parallax.map(el => el.getBoundingClientRect());
+    const sr = stepsEl && !reduced ? stepsEl.getBoundingClientRect() : null;
+    const cTop = sr && commit ? commit.getBoundingClientRect().top : 0;
+
+    // 2) Escritas depois
+    // Indicador: a página completa 360°
+    put(orbitFill, 'of', 'stroke-dashoffset', (100 - p * 100).toFixed(2));
+    const deg = String(Math.round(p * 360)).padStart(3, '0') + '°';
+    if (last.deg !== deg) { last.deg = deg; orbitDeg.textContent = deg; }
     orbit.classList.toggle('on-dark', pr.top < vh - 40 && pr.bottom > vh - 40);
 
     // Header fixo: fica sempre visível, só ganha fundo ao descer
@@ -161,40 +180,30 @@
 
     if (reduced) return;
 
-    // Hero: texto sobe mais devagar e esbate-se; fotografia afunda e cresce um pouco
-    if (y < vh * 1.2) {
-      const k = clamp(y / vh);
-      hero.style.setProperty('--hy', (y * .28).toFixed(1) + 'px');
-      hero.style.setProperty('--ho', (1 - k * .75).toFixed(3));
-      hero.style.setProperty('--hp', (y * .12).toFixed(1) + 'px');
-      hero.style.setProperty('--hs', (1 + k * .06).toFixed(4));
-    }
-
-    // Parallax das fotografias e do anel do compromisso
-    parallax.forEach(el => {
-      const r = el.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > vh) return;
+    // Parallax da fotografia do Sobre e rotação do anel do compromisso
+    parallax.forEach((el, i) => {
+      const r = px[i];
+      if (r.bottom < -100 || r.top > vh + 100) return;
       const off = (r.top + r.height / 2 - vh / 2) / vh;
-      el.style.setProperty('--py', (off * -60).toFixed(1) + 'px');
-      el.style.setProperty('--rot', (off * -90).toFixed(1) + 'deg');
+      put(el, 'py' + i, '--py', (off * -50).toFixed(0) + 'px');
+      put(el, 'rot' + i, '--rot', (off * -90).toFixed(0) + 'deg');
     });
 
     // Rodapé: o símbolo completa a volta com a página
-    orbit.classList.toggle('is-off', y < vh * .5 || footer.getBoundingClientRect().top < vh - 60);
+    orbit.classList.toggle('is-off', y < vh * .5 || fTop < vh - 60);
 
-    // Filosofia: o verde-petróleo cresce em círculo
+    // Filosofia: o verde-petróleo cresce em círculo (só enquanto entra no ecrã)
     const t = clamp((vh - pr.top) / (vh * .95));
-    philo.style.setProperty('--r', (6 + t * 144).toFixed(2) + '%');
+    put(philo, 'r', '--r', (6 + t * 144).toFixed(1) + '%');
 
     // Metodologia: percurso circular
-    if (stepsEl) {
-      const r = stepsEl.getBoundingClientRect();
-      const mp = clamp((vh * .55 - r.top) / r.height);
-      stepsEl.style.setProperty('--p', mp.toFixed(4));
-      if (cycleSvg) cycleSvg.style.setProperty('--p', mp.toFixed(4));
+    if (sr) {
+      const mp = clamp((vh * .55 - sr.top) / sr.height);
+      const mps = mp.toFixed(3);
+      put(stepsEl, 'mp', '--p', mps);
+      if (cycleSvg) put(cycleSvg, 'mps', '--p', mps);
       const idx = Math.min(steps.length - 1, Math.floor(mp * steps.length));
-      const commit = $('.commit');
-      if (cycle) cycle.classList.toggle('is-done', commit.getBoundingClientRect().top < vh * .6);
+      if (cycle) cycle.classList.toggle('is-done', cTop < vh * .6);
       if (idx !== active) {
         active = idx;
         steps.forEach((s, i) => {
@@ -216,7 +225,7 @@
     requestAnimationFrame(() => { onScroll(); ticking = false; });
   };
   window.addEventListener('scroll', requestTick, { passive: true });
-  window.addEventListener('resize', requestTick);
+  window.addEventListener('resize', () => { measure(); requestTick(); });
   onScroll();
   if (reduced) steps.forEach(s => s.classList.add('is-past'));
 
